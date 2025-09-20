@@ -35,10 +35,9 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
         try(
                 Connection connection = dataSource.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
         ) {
-            ResultSet resultSet = statement.executeQuery();
-
             ArrayList<LocalSpeciality> localSpecialities = new ArrayList<>();
 
             while(resultSet.next()) {

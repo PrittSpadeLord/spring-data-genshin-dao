@@ -6,9 +6,13 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -48,5 +52,17 @@ public class DataSourceConfiguration {
             LOG.error(errorMessage, e);
             throw new IllegalStateException(errorMessage, e);
         }
+    }
+
+    @Bean
+    public SQLExceptionTranslator sqlExceptionTranslator() {
+        return new SQLErrorCodeSQLExceptionTranslator();
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(@Autowired DataSource dataSource, @Autowired SQLExceptionTranslator sqlExceptionTranslator) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.setExceptionTranslator(sqlExceptionTranslator);
+        return jdbcTemplate;
     }
 }
