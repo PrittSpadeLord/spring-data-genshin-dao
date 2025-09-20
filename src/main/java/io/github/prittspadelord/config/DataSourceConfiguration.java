@@ -3,8 +3,8 @@ package io.github.prittspadelord.config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,14 +14,11 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * WIP
- */
 @Configuration
 @ComponentScan(basePackages = "io.github.prittspadelord.dao.impl")
 public class DataSourceConfiguration {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfiguration.class);
+    private static final Log LOG = LogFactory.getLog(DataSourceConfiguration.class);
 
     @Bean
     public DataSource dataSource() {
@@ -48,7 +45,7 @@ public class DataSourceConfiguration {
         }
         catch(IOException e) {
             String errorMessage = "Error occurred while reading resource as stream";
-            LOGGER.error(errorMessage, e);
+            LOG.error(errorMessage, e);
             throw new IllegalStateException(errorMessage, e);
         }
     }

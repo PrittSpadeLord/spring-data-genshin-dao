@@ -3,8 +3,9 @@ package io.github.prittspadelord.dao.impl;
 import io.github.prittspadelord.dao.LocalSpecialityDao;
 import io.github.prittspadelord.model.LocalSpeciality;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @Component
 public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LocalSpecialityDaoImpl.class);
+    private static final Log LOG = LogFactory.getLog(LocalSpecialityDaoImpl.class);
 
     private final DataSource dataSource;
 
@@ -30,7 +31,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
     @Override
     public List<LocalSpeciality> listAllLocalSpecialities() {
 
-        String sql = "SELECT * FROM local_specialities";
+        String sql = "SZELECT * FROM local_specialities";
 
         try(
                 Connection connection = dataSource.getConnection();
@@ -42,9 +43,12 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
             while(resultSet.next()) {
                 LocalSpeciality localSpeciality = new LocalSpeciality();
+                String nationString = resultSet.getString("nation");
+                LocalSpeciality.Nation nation = LocalSpeciality.Nation.valueOf(nationString);
+
                 localSpeciality.setId(resultSet.getInt("id"));
                 localSpeciality.setName(resultSet.getString("name"));
-                localSpeciality.setNation(LocalSpeciality.Nation.valueOf(resultSet.getString("nation")));
+                localSpeciality.setNation(nation);
 
                 localSpecialities.add(localSpeciality);
             }
@@ -52,7 +56,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
             return localSpecialities;
         }
         catch(SQLException e) {
-            LOGGER.error("SQL Error occured", e);
+            LOG.error("SQL Error occured with SQLSTATE: " + e.getSQLState(), e);
             return new ArrayList<>();
         }
     }
