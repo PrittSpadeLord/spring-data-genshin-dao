@@ -64,6 +64,31 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getElement().name());
         }
 
+        if(filter.getRarity() != null) {
+            queryBuilder.append(" AND rarity = ?::rarity");
+            queryParams.add(filter.getRarity().name());
+        }
+
+        if(filter.getReleaseVersion() != null) {
+            queryBuilder.append(" AND release_version = ?");
+            queryParams.add(filter.getReleaseVersion());
+        }
+
+        if(filter.getNation() != null) {
+            queryBuilder.append(" AND nation = ?::nation");
+            queryParams.add(filter.getNation().name());
+        }
+
+        if(filter.getWeaponType() != null) {
+            queryBuilder.append(" AND weapon_type = ?::weapon_type");
+            queryParams.add(filter.getWeaponType().name());
+        }
+
+        if(filter.getModelType() != null) {
+            queryBuilder.append(" AND model_type = ?::model_type");
+            queryParams.add(filter.getModelType().name());
+        }
+
         //more to be added
 
         String sql = queryBuilder.toString();
