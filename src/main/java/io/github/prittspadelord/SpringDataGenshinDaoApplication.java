@@ -1,8 +1,11 @@
 package io.github.prittspadelord;
 
 import io.github.prittspadelord.config.DataSourceConfiguration;
+import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.LocalSpecialityDao;
 
+import io.github.prittspadelord.dao.filters.CharacterFilter;
+import io.github.prittspadelord.model.Character;
 import io.github.prittspadelord.model.LocalSpeciality;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,12 +20,17 @@ public class SpringDataGenshinDaoApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(DataSourceConfiguration.class);
+        CharacterDao characterDao = context.getBean(CharacterDao.class);
         LocalSpecialityDao localSpecialityDao = context.getBean(LocalSpecialityDao.class);
 
-        List<LocalSpeciality> localSpecialities = localSpecialityDao.listLocalSpecialitiesByNation(LocalSpeciality.Nation.sumeru);
+        CharacterFilter characterFilter = new CharacterFilter();
+        characterFilter.setNation(Character.Nation.inazuma);
+        characterFilter.setModelType(Character.ModelType.medium_female);
 
-        for(LocalSpeciality localSpeciality: localSpecialities) {
-            LOG.info(localSpeciality.getName());
+        List<Character> characters = characterDao.listCharactersWithFilter(characterFilter);
+
+        for(Character character: characters) {
+            LOG.info(character.getName());
         }
     }
 }

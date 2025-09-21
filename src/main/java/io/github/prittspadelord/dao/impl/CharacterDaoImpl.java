@@ -89,7 +89,55 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getModelType().name());
         }
 
-        //more to be added
+        if(filter.getBaseHP() != null) {
+            queryBuilder.append(" AND base_hp");
+            queryParams.add(filter.getBaseHP());
+
+            switch(filter.getBaseHPComparisonType()) {
+                case equal -> queryBuilder.append(" =");
+                case greater -> queryBuilder.append(" >");
+                case lesser -> queryBuilder.append(" <");
+                case greater_or_equal -> queryBuilder.append(" >=");
+                case lesser_or_equal -> queryBuilder.append(" <=");
+            }
+
+            queryBuilder.append(" ?");
+        }
+
+        if(filter.getBaseATK() != null) {
+            queryBuilder.append(" AND base_atk");
+            queryParams.add(filter.getBaseATK());
+
+            switch(filter.getBaseATKComparisonType()) {
+                case equal -> queryBuilder.append(" =");
+                case greater -> queryBuilder.append(" >");
+                case lesser -> queryBuilder.append(" <");
+                case greater_or_equal -> queryBuilder.append(" >=");
+                case lesser_or_equal -> queryBuilder.append(" <=");
+            }
+
+            queryBuilder.append(" ?");
+        }
+
+        if(filter.getBaseDEF() != null) {
+            queryBuilder.append(" AND base_def");
+            queryParams.add(filter.getBaseDEF());
+
+            switch(filter.getBaseDEFComparisonType()) {
+                case equal -> queryBuilder.append(" =");
+                case greater -> queryBuilder.append(" >");
+                case lesser -> queryBuilder.append(" <");
+                case greater_or_equal -> queryBuilder.append(" >=");
+                case lesser_or_equal -> queryBuilder.append(" <=");
+            }
+
+            queryBuilder.append(" ?");
+        }
+
+        if(filter.getAscensionStat() != null) {
+            queryBuilder.append(" AND ascension_stat = ?::ascension_stat");
+            queryParams.add(filter.getAscensionStat().name());
+        }
 
         String sql = queryBuilder.toString();
         Stream<Character> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER, queryParams.toArray());
@@ -98,6 +146,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public List<Character> listCharactersWithFilter(CharacterLocalSpecialityFilter filter) {
-        return List.of();
+        //under construction!!
+        return new ArrayList<>();
     }
 }

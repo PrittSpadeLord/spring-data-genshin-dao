@@ -19,11 +19,11 @@ public class CharacterFilter {
     private Character.ModelType modelType;
 
     private Float baseHP;
-    private ComparisonType baseHPComparisonType;
+    private ComparisonType baseHPComparisonType = ComparisonType.equal;
     private Float baseATK;
-    private ComparisonType baseATKComparisonType;
+    private ComparisonType baseATKComparisonType = ComparisonType.equal;
     private Float baseDEF;
-    private ComparisonType baseDEFComparisonType;
+    private ComparisonType baseDEFComparisonType = ComparisonType.equal;
     private Character.AscensionStat ascensionStat;
 
     public Character.Element getElement() {
