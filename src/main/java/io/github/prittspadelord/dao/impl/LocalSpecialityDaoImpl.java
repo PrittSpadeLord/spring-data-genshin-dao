@@ -7,66 +7,59 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     private static final Log LOG = LogFactory.getLog(LocalSpecialityDaoImpl.class);
+    private static final RowMapper<LocalSpeciality> ROW_MAPPER = new BeanPropertyRowMapper<>(LocalSpeciality.class);
 
-    private final DataSource dataSource;
+    private final JdbcTemplate jdbcTemplate;
 
-    public LocalSpecialityDaoImpl(@Autowired DataSource dataSource) {
-        this.dataSource = dataSource;
+    public LocalSpecialityDaoImpl(@Autowired JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public List<LocalSpeciality> listAllLocalSpecialities() {
+        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.listAllLocalSpecialities() called");
+        String sql = "SELECT id, name, nation FROM local_specialities";
 
-        String sql = "SZELECT * FROM local_specialities";
+        Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER);
 
-        try(
-                Connection connection = dataSource.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = statement.executeQuery();
-        ) {
-            ArrayList<LocalSpeciality> localSpecialities = new ArrayList<>();
-
-            while(resultSet.next()) {
-                LocalSpeciality localSpeciality = new LocalSpeciality();
-                String nationString = resultSet.getString("nation");
-                LocalSpeciality.Nation nation = LocalSpeciality.Nation.valueOf(nationString);
-
-                localSpeciality.setId(resultSet.getInt("id"));
-                localSpeciality.setName(resultSet.getString("name"));
-                localSpeciality.setNation(nation);
-
-                localSpecialities.add(localSpeciality);
-            }
-
-            return localSpecialities;
-        }
-        catch(SQLException e) {
-            LOG.error("SQL Error occured with SQLSTATE: " + e.getSQLState(), e);
-            return new ArrayList<>();
-        }
+        return stream.toList();
     }
 
     @Override
     public List<LocalSpeciality> listLocalSpecialitiesByNation(LocalSpeciality.Nation nation) {
-        return new ArrayList<>(); //ignore this is incomplete
+        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.listLocalSpecialitiesByNation(LocalSpeciality.Nation) called");
+        String sql = "SELECT id, name, nation FROM local_specialities WHERE nation = ?::nation";
+
+        Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER, nation.toString());
+
+        return stream.toList();
     }
 
     @Override
     public LocalSpeciality getLocalSpecialityForId(int id) {
-        return null; //ignore this is incomplete
+        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.getLocalSpecialityForId(int) called");
+        String sql = "SELECT id, name, nation FROM local_specialities WHERE id = ?";
+
+        return jdbcTemplate.queryForObject(sql, ROW_MAPPER, id);
+    }
+
+    @Override
+    public String getLocalSpecialityNameForId(int id) {
+        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.getLocalSpecialityNameForId(int) called");
+        String sql = "SELECT name FROM local_specialities WHERE id = ?";
+
+        return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 }

@@ -60,7 +60,10 @@ public class DataSourceConfiguration {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(@Autowired DataSource dataSource, @Autowired SQLExceptionTranslator sqlExceptionTranslator) {
+    public JdbcTemplate jdbcTemplate(
+            @Autowired DataSource dataSource,
+            @Autowired SQLExceptionTranslator sqlExceptionTranslator
+    ) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.setExceptionTranslator(sqlExceptionTranslator);
         return jdbcTemplate;

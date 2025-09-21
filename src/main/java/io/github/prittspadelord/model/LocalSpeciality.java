@@ -2,10 +2,14 @@ package io.github.prittspadelord.model;
 
 import org.jspecify.annotations.NonNull;
 
-public class LocalSpeciality {
+import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class LocalSpeciality implements Serializable {
 
     public enum Nation {
-        mondstadt, liyue, inazuma, sumeru, fontaine, natlan, snezhnaya;
+        mondstadt, liyue, inazuma, sumeru, fontaine, natlan, snezhnaya, ;
     }
 
     int id;

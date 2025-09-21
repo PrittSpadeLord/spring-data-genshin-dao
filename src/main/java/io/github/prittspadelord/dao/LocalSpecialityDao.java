@@ -8,4 +8,5 @@ public interface LocalSpecialityDao {
     List<LocalSpeciality> listAllLocalSpecialities();
     List<LocalSpeciality> listLocalSpecialitiesByNation(LocalSpeciality.Nation nation);
     LocalSpeciality getLocalSpecialityForId(int id);
+    String getLocalSpecialityNameForId(int id);
 }
