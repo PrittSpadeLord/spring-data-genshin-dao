@@ -10,7 +10,7 @@ public class Character {
     }
 
     public enum Element {
-        anemo, geo, electro, dendro, hydro, pyro, cryo
+        anemo, geo, electro, dendro, hydro, pyro, cryo, adaptive
     }
 
     public enum WeaponType {

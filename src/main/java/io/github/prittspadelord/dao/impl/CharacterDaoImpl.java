@@ -99,6 +99,7 @@ public class CharacterDaoImpl implements CharacterDao {
                 case lesser -> queryBuilder.append(" <");
                 case greater_or_equal -> queryBuilder.append(" >=");
                 case lesser_or_equal -> queryBuilder.append(" <=");
+                case not_equal -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?");
@@ -114,6 +115,7 @@ public class CharacterDaoImpl implements CharacterDao {
                 case lesser -> queryBuilder.append(" <");
                 case greater_or_equal -> queryBuilder.append(" >=");
                 case lesser_or_equal -> queryBuilder.append(" <=");
+                case not_equal -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?");

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 public class CharacterFilter {
 
     public enum ComparisonType {
-        equal, greater, lesser, greater_or_equal, lesser_or_equal;
+        equal, greater, lesser, greater_or_equal, lesser_or_equal, not_equal;
     }
 
     private Character.Element element;
