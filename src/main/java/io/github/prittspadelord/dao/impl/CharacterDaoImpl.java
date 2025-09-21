@@ -4,7 +4,7 @@ import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.dao.filters.CharacterLocalSpecialityFilter;
 import io.github.prittspadelord.model.Character;
-import io.github.prittspadelord.model.LocalSpeciality;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,10 +3,9 @@ package io.github.prittspadelord;
 import io.github.prittspadelord.config.DataSourceConfiguration;
 import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.LocalSpecialityDao;
-
 import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.model.Character;
-import io.github.prittspadelord.model.LocalSpeciality;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
@@ -24,10 +23,12 @@ public class SpringDataGenshinDaoApplication {
         LocalSpecialityDao localSpecialityDao = context.getBean(LocalSpecialityDao.class);
 
         CharacterFilter characterFilter = new CharacterFilter();
-        characterFilter.setNation(Character.Nation.inazuma);
-        characterFilter.setModelType(Character.ModelType.medium_female);
+        characterFilter.setBaseDEF(900f);
+        characterFilter.setBaseDEFComparisonType(CharacterFilter.ComparisonType.greater);
 
         List<Character> characters = characterDao.listCharactersWithFilter(characterFilter);
+
+        if(characters.isEmpty()) LOG.info("No characters match these filters");
 
         for(Character character: characters) {
             LOG.info(character.getName());
