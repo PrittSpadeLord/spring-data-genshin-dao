@@ -29,7 +29,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public List<LocalSpeciality> listAllLocalSpecialities() {
-        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.listAllLocalSpecialities() called");
+        LOG.info("listAllLocalSpecialities called");
         String sql = "SELECT id, name, nation FROM local_specialities";
 
         Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER);
@@ -39,7 +39,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public List<LocalSpeciality> listLocalSpecialitiesByNation(LocalSpeciality.Nation nation) {
-        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.listLocalSpecialitiesByNation(LocalSpeciality.Nation) called");
+        LOG.info("listLocalSpecialitiesByNation called");
         String sql = "SELECT id, name, nation FROM local_specialities WHERE nation = ?::nation";
 
         Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER, nation.toString());
@@ -49,7 +49,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public LocalSpeciality getLocalSpecialityForId(int id) {
-        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.getLocalSpecialityForId(int) called");
+        LOG.info("getLocalSpecialityForId called");
         String sql = "SELECT id, name, nation FROM local_specialities WHERE id = ?";
 
         return jdbcTemplate.queryForObject(sql, ROW_MAPPER, id);
@@ -57,7 +57,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public String getLocalSpecialityNameForId(int id) {
-        LOG.info("io.github.prittspadelord.dao.impl.LocalSpecialityDaoImpl.getLocalSpecialityNameForId(int) called");
+        LOG.info("getLocalSpecialityNameForId called");
         String sql = "SELECT name FROM local_specialities WHERE id = ?";
 
         return jdbcTemplate.queryForObject(sql, String.class, id);
