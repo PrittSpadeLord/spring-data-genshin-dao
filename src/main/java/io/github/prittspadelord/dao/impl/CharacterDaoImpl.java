@@ -60,40 +60,82 @@ public class CharacterDaoImpl implements CharacterDao {
         queryBuilder.append("SELECT * FROM characters WHERE 1=1");
 
         if(filter.getElement() != null) {
-            queryBuilder.append(" AND element = ?::element");
+            queryBuilder.append(" AND element");
             queryParams.add(filter.getElement().name());
+
+            switch(filter.getElementEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::character_element");
         }
 
         if(filter.getRarity() != null) {
-            queryBuilder.append(" AND rarity = ?::rarity");
+            queryBuilder.append(" AND rarity");
             queryParams.add(filter.getRarity().name());
+
+            switch(filter.getRarityEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::rarity");
         }
 
         if(filter.getReleaseVersion() != null) {
-            queryBuilder.append(" AND release_version = ?");
+            queryBuilder.append(" AND release_version");
             queryParams.add(filter.getReleaseVersion());
+
+            switch(filter.getReleaseVersionEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?");
         }
 
         if(filter.getNation() != null) {
-            queryBuilder.append(" AND nation = ?::nation");
+            queryBuilder.append(" AND nation");
             queryParams.add(filter.getNation().name());
+
+            switch(filter.getNationEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::nation");
         }
 
         if(filter.getWeaponType() != null) {
-            queryBuilder.append(" AND weapon_type = ?::weapon_type");
+            queryBuilder.append(" AND weapon_type");
             queryParams.add(filter.getWeaponType().name());
+
+            switch(filter.getWeaponTypeEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::weapon_type");
         }
 
         if(filter.getModelType() != null) {
-            queryBuilder.append(" AND model_type = ?::model_type");
+            queryBuilder.append(" AND model_type");
             queryParams.add(filter.getModelType().name());
+
+            switch(filter.getModelTypeEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::model_type");
         }
 
         if(filter.getBaseHP() != null) {
             queryBuilder.append(" AND base_hp");
             queryParams.add(filter.getBaseHP());
 
-            switch(filter.getBaseHPComparisonType()) {
+            switch(filter.getBaseHPComparisonOperation()) {
                 case equal -> queryBuilder.append(" =");
                 case greater -> queryBuilder.append(" >");
                 case lesser -> queryBuilder.append(" <");
@@ -109,7 +151,7 @@ public class CharacterDaoImpl implements CharacterDao {
             queryBuilder.append(" AND base_atk");
             queryParams.add(filter.getBaseATK());
 
-            switch(filter.getBaseATKComparisonType()) {
+            switch(filter.getBaseATKComparisonOperation()) {
                 case equal -> queryBuilder.append(" =");
                 case greater -> queryBuilder.append(" >");
                 case lesser -> queryBuilder.append(" <");
@@ -125,7 +167,7 @@ public class CharacterDaoImpl implements CharacterDao {
             queryBuilder.append(" AND base_def");
             queryParams.add(filter.getBaseDEF());
 
-            switch(filter.getBaseDEFComparisonType()) {
+            switch(filter.getBaseDEFComparisonOperation()) {
                 case equal -> queryBuilder.append(" =");
                 case greater -> queryBuilder.append(" >");
                 case lesser -> queryBuilder.append(" <");
@@ -137,8 +179,15 @@ public class CharacterDaoImpl implements CharacterDao {
         }
 
         if(filter.getAscensionStat() != null) {
-            queryBuilder.append(" AND ascension_stat = ?::ascension_stat");
+            queryBuilder.append(" AND ascension_stat");
             queryParams.add(filter.getAscensionStat().name());
+
+            switch(filter.getAscensionStatEqualityOperation()) {
+                case equal -> queryBuilder.append(" =");
+                case not_equal -> queryBuilder.append(" !=");
+            }
+
+            queryBuilder.append(" ?::ascension_stat");
         }
 
         String sql = queryBuilder.toString();

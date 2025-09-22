@@ -23,8 +23,8 @@ public class SpringDataGenshinDaoApplication {
         LocalSpecialityDao localSpecialityDao = context.getBean(LocalSpecialityDao.class);
 
         CharacterFilter characterFilter = new CharacterFilter();
-        characterFilter.setBaseDEF(900f);
-        characterFilter.setBaseDEFComparisonType(CharacterFilter.ComparisonType.greater);
+        characterFilter.setElement(Character.Element.hydro, CharacterFilter.EqualityOperation.not_equal);
+        characterFilter.setNation(Character.Nation.fontaine);
 
         List<Character> characters = characterDao.listCharactersWithFilter(characterFilter);
 
