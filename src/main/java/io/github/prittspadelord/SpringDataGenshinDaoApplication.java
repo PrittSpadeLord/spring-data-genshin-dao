@@ -2,7 +2,6 @@ package io.github.prittspadelord;
 
 import io.github.prittspadelord.config.DataSourceConfiguration;
 import io.github.prittspadelord.dao.CharacterDao;
-import io.github.prittspadelord.dao.LocalSpecialityDao;
 import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.model.Character;
 
@@ -20,7 +19,6 @@ public class SpringDataGenshinDaoApplication {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(DataSourceConfiguration.class);
         CharacterDao characterDao = context.getBean(CharacterDao.class);
-        LocalSpecialityDao localSpecialityDao = context.getBean(LocalSpecialityDao.class);
 
         CharacterFilter characterFilter = new CharacterFilter();
         characterFilter.setElement(Character.Element.hydro, CharacterFilter.EqualityOperation.not_equal);
@@ -35,3 +33,4 @@ public class SpringDataGenshinDaoApplication {
         }
     }
 }
+
