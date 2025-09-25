@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWithCharactersDao {
@@ -27,6 +28,30 @@ public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWith
 
         ResultSetExtractor<List<LocalSpecialityWithCharacters>> rse = (resultSet) -> {
 
+            boolean found = false;
+            ArrayList<LocalSpecialityWithCharacters> list = new ArrayList<>();
+
+            while(resultSet.next()) {
+                for(LocalSpecialityWithCharacters localSpeciality: list) {
+                    if(resultSet.getInt("local_specialities.id") == localSpeciality.getId()) {
+                        found = true;
+
+                        List<String> characterList = localSpeciality.getCharacters();
+                        characterList.add(resultSet.getString("characters.name"));
+                        localSpeciality.setCharacters(characterList);
+                    }
+                }
+            }
+
+            if(!found) {
+                LocalSpecialityWithCharacters localSpecialityWithCharacters = new LocalSpecialityWithCharacters();
+
+                //stuff
+
+                list.add(localSpecialityWithCharacters);
+            }
+
+            return list;
         };
 
         return jdbcTemplate.query(sql, rse);
