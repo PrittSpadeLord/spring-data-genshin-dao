@@ -28,7 +28,7 @@ public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWith
     @Override
     public List<LocalSpecialityWithCharacters> listAllLocalSpecialitiesWithCharacters() {
 
-        String sql = "SELECT local_specialities.id, local_specialities.name, local_specialities.nation, characters.name FROM local_specialities INNER JOIN characters ON characters.local_speciality_id = local_specialities.id";
+        String sql = "SELECT local_specialities.id AS local_specialities_id, local_specialities.name AS local_specialities_name, local_specialities.nation AS local_specialities_nation, characters.name AS characters_name FROM local_specialities INNER JOIN characters ON characters.local_speciality_id = local_specialities.id";
 
         ResultSetExtractor<List<LocalSpecialityWithCharacters>> rse = (resultSet) -> {
 
@@ -37,29 +37,31 @@ public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWith
 
             while(resultSet.next()) {
                 for(LocalSpecialityWithCharacters localSpeciality: list) {
-                    if(resultSet.getInt("local_specialities.id") == localSpeciality.getId()) {
+                    if(resultSet.getInt("local_specialities_id") == localSpeciality.getId()) {
                         found = true;
 
                         List<String> characterList = localSpeciality.getCharacters();
-                        characterList.add(resultSet.getString("characters.name"));
+                        characterList.add(resultSet.getString("characters_name"));
                         localSpeciality.setCharacters(characterList);
                     }
                 }
-            }
 
-            if(!found) {
-                LocalSpecialityWithCharacters localSpecialityWithCharacters = new LocalSpecialityWithCharacters();
+                if(!found) {
+                    LocalSpecialityWithCharacters localSpecialityWithCharacters = new LocalSpecialityWithCharacters();
 
-                localSpecialityWithCharacters.setId(resultSet.getInt("local_specialities.id"));
-                localSpecialityWithCharacters.setName(resultSet.getString("local_specialities.name"));
-                localSpecialityWithCharacters.setNation(LocalSpecialityWithCharacters.Nation.valueOf(resultSet.getString("local_specialities.nation")));
+                    localSpecialityWithCharacters.setId(resultSet.getInt("local_specialities_id"));
+                    localSpecialityWithCharacters.setName(resultSet.getString("local_specialities_name"));
+                    localSpecialityWithCharacters.setNation(LocalSpecialityWithCharacters.Nation.valueOf(resultSet.getString("local_specialities_nation")));
 
-                List<String> charList = new ArrayList<>();
-                charList.add(resultSet.getString("characters.name"));
+                    List<String> charList = new ArrayList<>();
+                    charList.add(resultSet.getString("characters_name"));
 
-                localSpecialityWithCharacters.setCharacters(charList);
+                    localSpecialityWithCharacters.setCharacters(charList);
 
-                list.add(localSpecialityWithCharacters);
+                    list.add(localSpecialityWithCharacters);
+                }
+
+                found = false;
             }
 
             return list;

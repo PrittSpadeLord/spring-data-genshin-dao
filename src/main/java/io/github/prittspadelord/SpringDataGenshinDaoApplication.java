@@ -1,10 +1,7 @@
 package io.github.prittspadelord;
 
 import io.github.prittspadelord.config.DataSourceConfiguration;
-import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.LocalSpecialityWithCharactersDao;
-import io.github.prittspadelord.dao.filters.CharacterFilter;
-import io.github.prittspadelord.model.Character;
 
 import io.github.prittspadelord.model.LocalSpecialityWithCharacters;
 import org.apache.commons.logging.Log;
@@ -39,7 +36,7 @@ public class SpringDataGenshinDaoApplication {
         List<LocalSpecialityWithCharacters> list = dao.listAllLocalSpecialitiesWithCharacters();
 
         for(LocalSpecialityWithCharacters item: list) {
-            System.out.println(item.getName());
+            System.out.println(item.getName() + ": " + item.getCharacters());
         }
     }
 }
