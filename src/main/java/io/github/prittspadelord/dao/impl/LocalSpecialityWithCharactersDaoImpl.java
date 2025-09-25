@@ -2,15 +2,19 @@ package io.github.prittspadelord.dao.impl;
 
 import io.github.prittspadelord.dao.LocalSpecialityWithCharactersDao;
 import io.github.prittspadelord.model.LocalSpecialityWithCharacters;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWithCharactersDao {
 
     private static final Log LOG = LogFactory.getLog(LocalSpecialityWithCharactersDaoImpl.class);
@@ -46,7 +50,14 @@ public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWith
             if(!found) {
                 LocalSpecialityWithCharacters localSpecialityWithCharacters = new LocalSpecialityWithCharacters();
 
-                //stuff
+                localSpecialityWithCharacters.setId(resultSet.getInt("local_specialities.id"));
+                localSpecialityWithCharacters.setName(resultSet.getString("local_specialities.name"));
+                localSpecialityWithCharacters.setNation(LocalSpecialityWithCharacters.Nation.valueOf(resultSet.getString("local_specialities.nation")));
+
+                List<String> charList = new ArrayList<>();
+                charList.add(resultSet.getString("characters.name"));
+
+                localSpecialityWithCharacters.setCharacters(charList);
 
                 list.add(localSpecialityWithCharacters);
             }
