@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@Component
+@Repository
 public class CharacterDaoImpl implements CharacterDao {
     private static final Logger LOG = LoggerFactory.getLogger(CharacterDaoImpl.class);
     private static final RowMapper<Character> ROW_MAPPER = new BeanPropertyRowMapper<>(Character.class);
@@ -47,7 +47,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public List<Character> listAllCharacters() {
-        LOG.info("getCharacterByExactName called");
+        LOG.info("listAllCharacters called");
         String sql = "SELECT * FROM characters";
 
         Stream<Character> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER);
@@ -56,6 +56,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public List<Character> listCharactersWithFilter(CharacterFilter filter) {
+        LOG.info("listCharactersWithFilter called");
         List<Object> queryParams = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("SELECT * FROM characters WHERE 1=1");

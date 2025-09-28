@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWithCharactersDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalSpecialityWithCharactersDaoImpl.class);
