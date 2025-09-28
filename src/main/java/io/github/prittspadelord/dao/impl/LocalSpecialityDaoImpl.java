@@ -3,8 +3,8 @@ package io.github.prittspadelord.dao.impl;
 import io.github.prittspadelord.dao.LocalSpecialityDao;
 import io.github.prittspadelord.model.LocalSpeciality;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @Component
 public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
-    private static final Log LOG = LogFactory.getLog(LocalSpecialityDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSpecialityDaoImpl.class);
     private static final RowMapper<LocalSpeciality> ROW_MAPPER = new BeanPropertyRowMapper<>(LocalSpeciality.class);
 
     private final JdbcTemplate jdbcTemplate;

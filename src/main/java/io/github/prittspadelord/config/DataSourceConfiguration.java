@@ -3,8 +3,8 @@ package io.github.prittspadelord.config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "io.github.prittspadelord.dao.impl")
 public class DataSourceConfiguration {
 
-    private static final Log LOG = LogFactory.getLog(DataSourceConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataSourceConfiguration.class);
 
     @Bean
     public DataSource dataSource() {

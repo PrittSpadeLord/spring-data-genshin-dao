@@ -5,8 +5,9 @@ import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.dao.filters.CharacterLocalSpecialityFilter;
 import io.github.prittspadelord.model.Character;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +20,7 @@ import java.util.stream.Stream;
 
 @Component
 public class CharacterDaoImpl implements CharacterDao {
-    private static final Log LOG = LogFactory.getLog(CharacterDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CharacterDaoImpl.class);
     private static final RowMapper<Character> ROW_MAPPER = new BeanPropertyRowMapper<>(Character.class);
 
     private final JdbcTemplate jdbcTemplate;

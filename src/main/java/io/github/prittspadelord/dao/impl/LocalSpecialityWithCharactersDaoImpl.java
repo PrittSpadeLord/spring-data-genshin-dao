@@ -3,8 +3,8 @@ package io.github.prittspadelord.dao.impl;
 import io.github.prittspadelord.dao.LocalSpecialityWithCharactersDao;
 import io.github.prittspadelord.model.LocalSpecialityWithCharacters;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWithCharactersDao {
 
-    private static final Log LOG = LogFactory.getLog(LocalSpecialityWithCharactersDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSpecialityWithCharactersDaoImpl.class);
 
     private final JdbcTemplate jdbcTemplate;
 
