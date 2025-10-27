@@ -1,7 +1,6 @@
 package io.github.prittspadelord.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,16 +35,17 @@ public class DataSourceConfiguration {
             final String username = props.getProperty("username");
             final String password = props.getProperty("password");
 
-            HikariConfig config = new HikariConfig();
-            config.setDriverClassName(driverClassName);
-            config.setJdbcUrl(dbUrl);
-            config.setUsername(username);
-            config.setPassword(password);
+            BasicDataSource dataSource = new BasicDataSource();
 
-            config.setMinimumIdle(1);
-            config.setMaximumPoolSize(5);
+            dataSource.setDriverClassName(driverClassName);
+            dataSource.setUrl(dbUrl);
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
 
-            return new HikariDataSource(config);
+            dataSource.setMinIdle(1);
+            dataSource.setMaxTotal(5);
+
+            return dataSource;
         }
         catch(IOException e) {
             String errorMessage = "Error occurred while reading resource as stream";
