@@ -3,8 +3,7 @@ package io.github.prittspadelord.dao.impl;
 import io.github.prittspadelord.dao.LocalSpecialityDao;
 import io.github.prittspadelord.model.LocalSpeciality;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -15,10 +14,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Slf4j
 @Repository
 public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LocalSpecialityDaoImpl.class);
     private static final RowMapper<LocalSpeciality> ROW_MAPPER = new BeanPropertyRowMapper<>(LocalSpeciality.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -29,7 +28,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public List<LocalSpeciality> listAllLocalSpecialities() {
-        LOG.info("listAllLocalSpecialities called");
+        log.info("listAllLocalSpecialities called");
         String sql = "SELECT id, name, nation FROM local_specialities";
 
         Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER);
@@ -39,7 +38,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public List<LocalSpeciality> listLocalSpecialitiesByNation(LocalSpeciality.Nation nation) {
-        LOG.info("listLocalSpecialitiesByNation called");
+        log.info("listLocalSpecialitiesByNation called");
         String sql = "SELECT id, name, nation FROM local_specialities WHERE nation = ?::nation";
 
         Stream<LocalSpeciality> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER, nation.toString());
@@ -49,7 +48,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public LocalSpeciality getLocalSpecialityForId(int id) {
-        LOG.info("getLocalSpecialityForId called");
+        log.info("getLocalSpecialityForId called");
         String sql = "SELECT id, name, nation FROM local_specialities WHERE id = ?";
 
         return jdbcTemplate.queryForObject(sql, ROW_MAPPER, id);
@@ -57,7 +56,7 @@ public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
 
     @Override
     public String getLocalSpecialityNameForId(int id) {
-        LOG.info("getLocalSpecialityNameForId called");
+        log.info("getLocalSpecialityNameForId called");
         String sql = "SELECT name FROM local_specialities WHERE id = ?";
 
         return jdbcTemplate.queryForObject(sql, String.class, id);

@@ -1,6 +1,7 @@
 package io.github.prittspadelord.dao.filters;
 
 import io.github.prittspadelord.model.Character;
+
 import lombok.Setter;
 
 @Setter

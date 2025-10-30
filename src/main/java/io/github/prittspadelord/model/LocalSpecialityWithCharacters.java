@@ -2,6 +2,7 @@ package io.github.prittspadelord.model;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;

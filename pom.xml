@@ -12,13 +12,15 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <apache.commons.dbcp.version>2.13.0</apache.commons.dbcp.version>
+        <apache.commons.dbcp.version>2.13.0</apache.commons.dbcp.version> <!--apache dbcp 2.13.0 depends on junit 5.11.2 and mockito 4.11.0 -->
         <jspecify.version>1.0.0</jspecify.version>
-        <logback.version>1.5.19</logback.version>
+        <logback.version>1.5.20</logback.version> <!-- logback 1.5.20 depends on slf4j 2.0.17 -->
         <lombok.version>1.18.42</lombok.version>
+        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
         <postgresql.version>42.7.8</postgresql.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <spring.framework.version>6.2.11</spring.framework.version>
+        <spring.framework.version>6.2.12</spring.framework.version>
+
     </properties>
 
     <dependencies>
@@ -70,4 +72,26 @@
             <version>${spring.framework.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <useIncrementalCompilation>true</useIncrementalCompilation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

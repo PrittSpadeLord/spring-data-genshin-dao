@@ -1,9 +1,8 @@
 package io.github.prittspadelord.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +16,10 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
+@Slf4j
 @Configuration
 @ComponentScan(basePackages = "io.github.prittspadelord.dao.impl")
 public class DataSourceConfiguration {
-
-    private static final Logger LOG = LoggerFactory.getLogger(DataSourceConfiguration.class);
 
     @Bean
     public DataSource dataSource() {
@@ -49,7 +47,7 @@ public class DataSourceConfiguration {
         }
         catch(IOException e) {
             String errorMessage = "Error occurred while reading resource as stream";
-            LOG.error(errorMessage, e);
+            log.error(errorMessage, e);
             throw new IllegalStateException(errorMessage, e);
         }
     }

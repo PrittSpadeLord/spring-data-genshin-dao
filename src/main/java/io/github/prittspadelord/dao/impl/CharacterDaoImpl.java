@@ -5,8 +5,7 @@ import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.dao.filters.CharacterLocalSpecialityFilter;
 import io.github.prittspadelord.model.Character;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Slf4j
 @Repository
 public class CharacterDaoImpl implements CharacterDao {
-    private static final Logger LOG = LoggerFactory.getLogger(CharacterDaoImpl.class);
+
     private static final RowMapper<Character> ROW_MAPPER = new BeanPropertyRowMapper<>(Character.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -31,7 +31,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public Character getCharacterById(int id) {
-        LOG.info("getCharacterById called");
+        log.info("getCharacterById called");
         String sql = "SELECT * FROM characters WHERE id = ?";
 
         return jdbcTemplate.queryForObject(sql, ROW_MAPPER, id);
@@ -39,7 +39,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public Character getCharacterByExactName(String name) {
-        LOG.info("getCharacterByExactName called");
+        log.info("getCharacterByExactName called");
         String sql = "SELECT * FROM characters WHERE name = ?";
 
         return jdbcTemplate.queryForObject(sql, ROW_MAPPER, name);
@@ -47,7 +47,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public List<Character> listAllCharacters() {
-        LOG.info("listAllCharacters called");
+        log.info("listAllCharacters called");
         String sql = "SELECT * FROM characters";
 
         Stream<Character> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER);
@@ -56,7 +56,7 @@ public class CharacterDaoImpl implements CharacterDao {
 
     @Override
     public List<Character> listCharactersWithFilter(CharacterFilter filter) {
-        LOG.info("listCharactersWithFilter called");
+        log.info("listCharactersWithFilter called");
         List<Object> queryParams = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("SELECT * FROM characters WHERE 1=1");

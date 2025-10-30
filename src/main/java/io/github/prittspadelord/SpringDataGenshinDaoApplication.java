@@ -6,17 +6,15 @@ import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.filters.CharacterFilter;
 import io.github.prittspadelord.model.Character;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
+@Slf4j
 public class SpringDataGenshinDaoApplication {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SpringDataGenshinDaoApplication.class);
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(DataSourceConfiguration.class);
@@ -30,7 +28,7 @@ public class SpringDataGenshinDaoApplication {
         List<Character> characters = characterDao.listCharactersWithFilter(filter);
 
         for(Character character: characters) {
-            LOG.info(character.getName());
+            log.info(character.getName());
         }
     }
 }
