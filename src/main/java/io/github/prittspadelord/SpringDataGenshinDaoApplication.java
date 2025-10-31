@@ -1,6 +1,6 @@
 package io.github.prittspadelord;
 
-import io.github.prittspadelord.config.DataSourceConfiguration;
+import io.github.prittspadelord.config.SpringAppConfig;
 
 import io.github.prittspadelord.dao.CharacterDao;
 import io.github.prittspadelord.dao.filters.CharacterFilter;
@@ -17,13 +17,15 @@ import java.util.List;
 public class SpringDataGenshinDaoApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DataSourceConfiguration.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringAppConfig.class);
 
         CharacterDao characterDao = context.getBean(CharacterDao.class);
 
         CharacterFilter filter = new CharacterFilter();
-        filter.setNation(Character.Nation.inazuma);
-        filter.setModelType(Character.ModelType.medium_female);
+        //filter.setNation(Character.Nation.inazuma);
+        //filter.setModelType(Character.ModelType.medium_female);
+        //filter.setWeaponType(Character.WeaponType.sword);
+        filter.setBaseDEF(900.0F, CharacterFilter.ComparisonOperation.greater_than);
 
         List<Character> characters = characterDao.listCharactersWithFilter(filter);
 

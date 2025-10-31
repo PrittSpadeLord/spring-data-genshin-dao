@@ -19,13 +19,13 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Repository
-public class CharacterDaoImpl implements CharacterDao {
+public class JdbcTemplateCharacterDao implements CharacterDao {
 
     private static final RowMapper<Character> ROW_MAPPER = new BeanPropertyRowMapper<>(Character.class);
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CharacterDaoImpl(@Autowired JdbcTemplate jdbcTemplate) {
+    public JdbcTemplateCharacterDao(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -66,8 +66,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getElement().name());
 
             switch(filter.getElementEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::character_element");
@@ -78,8 +78,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getRarity().name());
 
             switch(filter.getRarityEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::rarity");
@@ -90,8 +90,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getReleaseVersion());
 
             switch(filter.getReleaseVersionEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?");
@@ -102,8 +102,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getNation().name());
 
             switch(filter.getNationEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::nation");
@@ -114,8 +114,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getWeaponType().name());
 
             switch(filter.getWeaponTypeEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::weapon_type");
@@ -126,8 +126,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getModelType().name());
 
             switch(filter.getModelTypeEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::model_type");
@@ -138,12 +138,12 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getBaseHP());
 
             switch(filter.getBaseHPComparisonOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case greater -> queryBuilder.append(" >");
-                case lesser -> queryBuilder.append(" <");
-                case greater_or_equal -> queryBuilder.append(" >=");
-                case lesser_or_equal -> queryBuilder.append(" <=");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case greater_than -> queryBuilder.append(" >");
+                case less_than -> queryBuilder.append(" <");
+                case greater_than_or_equal_to -> queryBuilder.append(" >=");
+                case less_than_or_equal_to -> queryBuilder.append(" <=");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?");
@@ -154,12 +154,12 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getBaseATK());
 
             switch(filter.getBaseATKComparisonOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case greater -> queryBuilder.append(" >");
-                case lesser -> queryBuilder.append(" <");
-                case greater_or_equal -> queryBuilder.append(" >=");
-                case lesser_or_equal -> queryBuilder.append(" <=");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case greater_than -> queryBuilder.append(" >");
+                case less_than -> queryBuilder.append(" <");
+                case greater_than_or_equal_to -> queryBuilder.append(" >=");
+                case less_than_or_equal_to -> queryBuilder.append(" <=");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?");
@@ -170,11 +170,11 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getBaseDEF());
 
             switch(filter.getBaseDEFComparisonOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case greater -> queryBuilder.append(" >");
-                case lesser -> queryBuilder.append(" <");
-                case greater_or_equal -> queryBuilder.append(" >=");
-                case lesser_or_equal -> queryBuilder.append(" <=");
+                case equal_to -> queryBuilder.append(" =");
+                case greater_than -> queryBuilder.append(" >");
+                case less_than -> queryBuilder.append(" <");
+                case greater_than_or_equal_to -> queryBuilder.append(" >=");
+                case less_than_or_equal_to -> queryBuilder.append(" <=");
             }
 
             queryBuilder.append(" ?");
@@ -185,8 +185,8 @@ public class CharacterDaoImpl implements CharacterDao {
             queryParams.add(filter.getAscensionStat().name());
 
             switch(filter.getAscensionStatEqualityOperation()) {
-                case equal -> queryBuilder.append(" =");
-                case not_equal -> queryBuilder.append(" !=");
+                case equal_to -> queryBuilder.append(" =");
+                case not_equal_to -> queryBuilder.append(" !=");
             }
 
             queryBuilder.append(" ?::ascension_stat");

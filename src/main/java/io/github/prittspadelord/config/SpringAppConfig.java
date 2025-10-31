@@ -14,12 +14,15 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Properties;
 
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = "io.github.prittspadelord.dao.impl")
-public class DataSourceConfiguration {
+public class SpringAppConfig {
 
     @Bean
     public DataSource dataSource() {
@@ -40,6 +43,8 @@ public class DataSourceConfiguration {
             dataSource.setUsername(username);
             dataSource.setPassword(password);
 
+            dataSource.setLogWriter(new PrintWriter(System.out));
+
             dataSource.setMinIdle(1);
             dataSource.setMaxTotal(5);
 
@@ -47,6 +52,11 @@ public class DataSourceConfiguration {
         }
         catch(IOException e) {
             String errorMessage = "Error occurred while reading resource as stream";
+            log.error(errorMessage, e);
+            throw new IllegalStateException(errorMessage, e);
+        }
+        catch(SQLException e) {
+            String errorMessage = "Error occurred while setting log writer";
             log.error(errorMessage, e);
             throw new IllegalStateException(errorMessage, e);
         }

@@ -16,13 +16,13 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Repository
-public class LocalSpecialityDaoImpl implements LocalSpecialityDao {
+public class JdbcTemplateLocalSpecialityDao implements LocalSpecialityDao {
 
     private static final RowMapper<LocalSpeciality> ROW_MAPPER = new BeanPropertyRowMapper<>(LocalSpeciality.class);
 
     private final JdbcTemplate jdbcTemplate;
 
-    public LocalSpecialityDaoImpl(@Autowired JdbcTemplate jdbcTemplate) {
+    public JdbcTemplateLocalSpecialityDao(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

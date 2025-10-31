@@ -11,35 +11,35 @@ import lombok.Setter;
 public class CharacterFilter {
 
     public enum EqualityOperation {
-        equal, not_equal;
+        equal_to, not_equal_to
     }
 
     public enum ComparisonOperation {
-        equal, greater, lesser, greater_or_equal, lesser_or_equal, not_equal;
+        equal_to, greater_than, less_than, greater_than_or_equal_to, less_than_or_equal_to, not_equal_to
     }
 
     private Character.Element element;
-    @Setter(AccessLevel.NONE) private EqualityOperation elementEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation elementEqualityOperation = EqualityOperation.equal_to;
     private Character.Rarity rarity;
-    @Setter(AccessLevel.NONE) private EqualityOperation rarityEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation rarityEqualityOperation = EqualityOperation.equal_to;
     private String releaseVersion;
-    @Setter(AccessLevel.NONE) private EqualityOperation releaseVersionEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation releaseVersionEqualityOperation = EqualityOperation.equal_to;
     private Character.Nation nation;
-    @Setter(AccessLevel.NONE) private EqualityOperation nationEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation nationEqualityOperation = EqualityOperation.equal_to;
     private Character.WeaponType weaponType;
-    @Setter(AccessLevel.NONE) private EqualityOperation weaponTypeEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation weaponTypeEqualityOperation = EqualityOperation.equal_to;
     private Character.ModelType modelType;
-    @Setter(AccessLevel.NONE) private EqualityOperation modelTypeEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation modelTypeEqualityOperation = EqualityOperation.equal_to;
 
     private Float baseHP;
-    @Setter(AccessLevel.NONE) private ComparisonOperation baseHPComparisonOperation = ComparisonOperation.equal;
+    @Setter(AccessLevel.NONE) private ComparisonOperation baseHPComparisonOperation = ComparisonOperation.equal_to;
     private Float baseATK;
-    @Setter(AccessLevel.NONE) private ComparisonOperation baseATKComparisonOperation = ComparisonOperation.equal;
+    @Setter(AccessLevel.NONE) private ComparisonOperation baseATKComparisonOperation = ComparisonOperation.equal_to;
     private Float baseDEF;
-    @Setter(AccessLevel.NONE) private ComparisonOperation baseDEFComparisonOperation = ComparisonOperation.equal;
+    @Setter(AccessLevel.NONE) private ComparisonOperation baseDEFComparisonOperation = ComparisonOperation.equal_to;
 
     private Character.AscensionStat ascensionStat;
-    @Setter(AccessLevel.NONE) private EqualityOperation ascensionStatEqualityOperation = EqualityOperation.equal;
+    @Setter(AccessLevel.NONE) private EqualityOperation ascensionStatEqualityOperation = EqualityOperation.equal_to;
 
     public void setElement(Character.Element element, EqualityOperation elementEqualityOperation) {
         this.element = element;

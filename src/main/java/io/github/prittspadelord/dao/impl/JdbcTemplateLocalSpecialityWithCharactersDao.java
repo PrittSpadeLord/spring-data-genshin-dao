@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class LocalSpecialityWithCharactersDaoImpl implements LocalSpecialityWithCharactersDao {
+public class JdbcTemplateLocalSpecialityWithCharactersDao implements LocalSpecialityWithCharactersDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public LocalSpecialityWithCharactersDaoImpl(@Autowired JdbcTemplate jdbcTemplate) {
+    public JdbcTemplateLocalSpecialityWithCharactersDao(@Autowired JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
