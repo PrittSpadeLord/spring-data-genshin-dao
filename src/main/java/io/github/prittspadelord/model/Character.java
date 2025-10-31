@@ -27,7 +27,7 @@ public class Character {
     }
 
     public enum Nation {
-        mondstadt, liyue, inazuma, sumeru, fontaine, natlan, snezhnaya;
+        mondstadt, liyue, inazuma, sumeru, fontaine, natlan, snezhnaya, nod_krai;
     }
 
     public enum AscensionStat {

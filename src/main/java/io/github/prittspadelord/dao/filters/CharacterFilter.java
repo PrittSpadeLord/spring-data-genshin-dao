@@ -18,6 +18,14 @@ public class CharacterFilter {
         equal_to, greater_than, less_than, greater_than_or_equal_to, less_than_or_equal_to, not_equal_to
     }
 
+    public enum OrderByStat {
+        baseHp, baseATK, baseDEF
+    }
+
+    public enum OrderByDirection {
+        ascending, descending
+    }
+
     private Character.Element element;
     @Setter(AccessLevel.NONE) private EqualityOperation elementEqualityOperation = EqualityOperation.equal_to;
     private Character.Rarity rarity;
@@ -40,6 +48,9 @@ public class CharacterFilter {
 
     private Character.AscensionStat ascensionStat;
     @Setter(AccessLevel.NONE) private EqualityOperation ascensionStatEqualityOperation = EqualityOperation.equal_to;
+
+    private OrderByStat orderByStat = null;
+    private OrderByDirection orderByDirection = null;
 
     public void setElement(Character.Element element, EqualityOperation elementEqualityOperation) {
         this.element = element;

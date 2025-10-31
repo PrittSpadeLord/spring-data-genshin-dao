@@ -192,6 +192,24 @@ public class JdbcTemplateCharacterDao implements CharacterDao {
             queryBuilder.append(" ?::ascension_stat");
         }
 
+        if((filter.getOrderByStat() != null) && (filter.getOrderByDirection() != null)) {
+            String stat = "";
+            String direction = "";
+
+            switch(filter.getOrderByStat()) {
+                case baseHp -> stat = "base_hp";
+                case baseATK -> stat = "base_atk";
+                case baseDEF -> stat = "base_def";
+            }
+
+            switch(filter.getOrderByDirection()) {
+                case ascending -> direction = " ASC";
+                case descending -> direction = " DESC";
+            }
+
+            queryBuilder.append(" ORDER BY ").append(stat).append(direction);
+        }
+
         String sql = queryBuilder.toString();
         Stream<Character> stream = jdbcTemplate.queryForStream(sql, ROW_MAPPER, queryParams.toArray());
         return stream.toList();

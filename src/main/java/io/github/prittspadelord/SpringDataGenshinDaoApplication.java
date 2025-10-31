@@ -25,7 +25,9 @@ public class SpringDataGenshinDaoApplication {
         //filter.setNation(Character.Nation.inazuma);
         //filter.setModelType(Character.ModelType.medium_female);
         //filter.setWeaponType(Character.WeaponType.sword);
-        filter.setBaseDEF(900.0F, CharacterFilter.ComparisonOperation.greater_than);
+        filter.setBaseDEF(900.0F, CharacterFilter.ComparisonOperation.less_than);
+        filter.setOrderByStat(CharacterFilter.OrderByStat.baseDEF);
+        filter.setOrderByDirection(CharacterFilter.OrderByDirection.ascending);
 
         List<Character> characters = characterDao.listCharactersWithFilter(filter);
 
